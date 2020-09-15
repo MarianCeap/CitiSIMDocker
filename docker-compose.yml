@@ -7,7 +7,6 @@ services:
       - citisim_db
     ports:
       - "32100:80"
-      - "32122:22"
 
   citisim_db:
     image: mysql:5.7
