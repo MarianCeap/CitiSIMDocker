@@ -9,6 +9,7 @@ from flask_cors import CORS
 from flask_login import LoginManager
 from flask_mysqldb import MySQL
 import MySQLdb
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -22,10 +23,10 @@ app.config['HELP_FILE'] = 'static/HELP.pdf'
 # app.config['MYSQL_PASSWORD'] = 'libcitisimDB'
 # app.config['MYSQL_DB'] = 'libcitisim'
 
-app.config['MYSQL_HOST'] = 'citisim_db'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'toor'
-app.config['MYSQL_DB'] = 'libcitisim'
+app.config['MYSQL_HOST'] = os.getenv('CITISIM_MYSQL_HOST', 'citisim_db')
+app.config['MYSQL_USER'] = os.getenv('CITISIM_MYSQL_USER', 'root')
+app.config['MYSQL_PASSWORD'] = os.getenv('CITISIM_MYSQL_PASSWORD', 'toor')
+app.config['MYSQL_DB'] = os.getenv('CITISIM_MYSQL_DB', 'libcitisim')
 
 mydb = MySQL(app)
 

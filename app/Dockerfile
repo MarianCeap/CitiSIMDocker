@@ -2,43 +2,16 @@
 FROM tiangolo/uwsgi-nginx:python2.7
 
 ENV UWSGI_INI /app/uwsgi.ini
+ENV CITISIM_MYSQL_HOST citisim_db
+ENV CITISIM_MYSQL_USER root
+ENV CITISIM_MYSQL_PASSWORD toor
+ENV CITISIM_MYSQL_DB libcitisim
 
 RUN apt-get update
 RUN apt-get -y install python2.7-dev
 RUN apt-get -y install default-libmysqlclient-dev
 
-#COPY requirements.txt .
-#RUN pip install -r requirements.txt
-RUN pip install bcrypt==3.1.7
-RUN pip install cffi==1.14.2
-RUN pip install click==7.1.2
-RUN pip install Flask==1.1.2
-RUN pip install Flask-Bcrypt==0.7.1
-RUN pip install Flask-Cors==3.0.8
-RUN pip install Flask-Excel==0.0.7
-RUN pip install Flask-Login==0.5.0
-RUN pip install Flask-MySQLdb==0.2.0
-RUN pip install itsdangerous==1.1.0
-RUN pip install Jinja2==2.11.2
-RUN pip install lml==0.0.9
-RUN pip install MarkupSafe==1.1.1
-RUN pip install mysql-connector==2.2.9
-RUN pip install mysqlclient==1.4.6
-RUN pip install numpy==1.14.0
-RUN pip install patsy==0.5.1
-RUN pip install pycparser==2.20
-RUN pip install pyexcel==0.5.15
-RUN pip install pyexcel-io==0.5.20
-RUN pip install pyexcel-webio==0.1.4
-RUN pip install python-dateutil==2.8.1
-RUN pip install pytz==2020.1
-RUN pip install scipy==1.2.3
-RUN pip install six==1.15.0
-RUN pip install statsmodels==0.10.2
-RUN pip install texttable==1.6.2
-RUN pip install uWSGI==2.0.19.1
-RUN pip install Werkzeug==1.0.1
-
-
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 COPY src/ /app
