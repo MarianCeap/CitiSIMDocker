@@ -101,6 +101,8 @@ function ndsModalAdd(){
       $('#ndsSensor')[0].value = "";
       $('#ndsDescription')[0].value = "";
       $('.ui.basic.modal.NDS').modal('hide');
+    } else {
+      alert("The following error occurred: " + response);
     }
   });
 }

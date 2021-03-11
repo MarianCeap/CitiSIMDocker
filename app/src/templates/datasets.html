@@ -61,7 +61,7 @@
                   <i  class='edit icon pointed'  data-content='Edit Dataset' onclick="launchNDSEditModal({{elem.ID}})"></i>
                 </div>
                 <strong>{{elem.DatasetName}}</strong><br>
-                Libcitisim sensor: {{elem.SensorID}}<br>
+                Sensor: {{elem.SensorID}}<br>
                 {{elem.DatasetDescription}}
                 <div align="right" style="width: 100%;">
                   <i  class='upload icon pointed'  data-content='Export Data'  onclick="exportData({{elem.ID}})"></i>
@@ -98,7 +98,7 @@
               <br>
               <div class="ui right labeled inverted input" style="margin: 10px;">
                   <div class="ui label" style="width:90px">Sensor </div>
-                  <input id="ndsSensor" type="text"  placeholder="Libcitisim Sensor ID" style="width:410px">
+                  <input id="ndsSensor" type="text"  placeholder="Sensor ID" style="width:410px">
               </div>
               <br>
               <div class="ui inverted input" style="margin: 10px;">

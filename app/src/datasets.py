@@ -39,10 +39,17 @@ def addNewDataset():
 
     userID = current_user.id
     content = request.get_json()
+    query = ("SELECT count(*) as num FROM Subscriptions s WHERE s.UserID = %s AND s.SensorID = '%s'" % (userID, content["SensorID"]))
+    
+    mycursor = mydb.connection.cursor(MySQLdb.cursors.DictCursor)
+    mycursor.execute(query)
+ 
+    if(mycursor.fetchone()["num"] != 0):
+        return "SensorID not unique!"
+
     query = ("INSERT INTO Subscriptions (ID, UserID, SensorID, DatasetName, DatasetDescription, Validity, StartDate, EndDate) " +
              "VALUES (NULL, %s, '%s', '%s', '%s', 1, CURRENT_TIMESTAMP, NULL)" % ( userID, content["SensorID"], content["DatasetName"],content["DatasetDescription"] ))
 
-    mycursor = mydb.connection.cursor(MySQLdb.cursors.DictCursor)
     mycursor.execute(query)
     mydb.connection.commit()
 

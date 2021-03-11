@@ -10,6 +10,31 @@ import performanceIndicators
 import MySQLdb
 import json
 
+@app.route('/addSensorValue', methods=["POST"])
+def addSensorValue():
+    if(request.is_json == False):
+        return "Wrong data format!"
+
+    content = request.get_json()
+    userEmail = content["userEmail"]
+    sensorID = content["sensorID"]
+    value = content["value"]
+    timestamp = content["timestamp"]
+
+    query = ("SELECT s.ID FROM Subscriptions s where s.UserID = (SELECT u.userID FROM Users u WHERE u.userEmail = '%s') AND s.SensorID = '%s'" % (userEmail, sensorID))
+    mycursor = mydb.connection.cursor(MySQLdb.cursors.DictCursor)
+    mycursor.execute(query)
+    result = mycursor.fetchone()
+    if(result == None):
+        return "Sensor not subscribed"
+
+    subscriptionID = result["ID"]
+
+    insertQuery = ("INSERT INTO EnergySensorsData (SensorID, Value, Timestamp, SubscriptionID) VALUES ('%s', %s, '%s', %s)" % (sensorID, value, timestamp, subscriptionID))
+    mycursor.execute(insertQuery)
+    mydb.connection.commit()
+
+    return "Success! " + str(mycursor.lastrowid)
 
 @app.route('/sensorsData')
 def sensorsData():
